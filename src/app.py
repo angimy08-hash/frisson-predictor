@@ -39,7 +39,57 @@ if audio_upload:
             scored = score_features(features, DEFAULT_WEIGHTS, top_percent)
         peaks = prediction_peaks(scored)
         st.success(f'분석 완료 — {len(scored)}개 창, 예측 피크 {len(peaks)}개')
-        st.markdown('''> **방법론 설명**  
+        st.markdown('''> **방법론 설명**
+score = frisson_score(scored)
+
+if score >= 90:
+    grade = "👑 S+"
+    text = "매우 강한 Frisson 유발 가능성을 가진 음악입니다."
+
+elif score >= 80:
+    grade = "🥇 S"
+    text = "Frisson을 유발하는 요소가 매우 풍부합니다."
+
+elif score >= 70:
+    grade = "🥈 A"
+    text = "감성적인 전개가 많이 포함되어 있습니다."
+
+elif score >= 60:
+    grade = "🥉 B"
+    text = "일부 구간에서 Frisson 요소가 나타납니다."
+
+elif score >= 40:
+    grade = "🎵 C"
+    text = "잔잔한 분위기의 음악입니다."
+
+else:
+    grade = "🌱 D"
+    text = "Frisson 요소가 비교적 적은 음악입니다."
+
+st.markdown(
+    f"""
+<div style="
+background:linear-gradient(135deg,#6C63FF,#E94057);
+padding:25px;
+border-radius:18px;
+text-align:center;
+color:white;
+margin-top:15px;
+margin-bottom:20px;
+">
+
+<h2>🎼 이 음악의 Frisson 지수</h2>
+
+<h1 style="font-size:70px;margin:5px;">{score}점</h1>
+
+<h3>{grade}</h3>
+
+<p style="font-size:18px;">{text}</p>
+
+</div>
+""",
+    unsafe_allow_html=True,
+)
 > 본 예측은 Grewe et al.(2007), Guhn et al.(2007), Nagel et al.(2008), Huron & Margulis(2010)에서 보고된 5가지 음향적 상관요인을 근거로 한 것이며, 각 논문에서 확인된 상관관계 방향(양의 상관)만 반영한 탐색적 지표입니다.''')
         with st.expander('연구근거 기반 고정 가중치', expanded=False):
             st.markdown('''- 음량 급증: **0.30** — Grewe et al.(2007), Huron & Margulis(2010)에서 가장 일관되게 언급된 단서
