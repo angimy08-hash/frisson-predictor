@@ -6,12 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from audio_features import extract_features
-from chill_predictor import (
-    DEFAULT_WEIGHTS,
-    prediction_peaks,
-    score_features,
-    frisson_score,
-)
+from chill_predictor import DEFAULT_WEIGHTS, prediction_peaks, score_features
 from validate_against_log import validate
 
 st.set_page_config(page_title='Frisson 예측기', layout='wide')
