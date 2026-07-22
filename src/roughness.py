@@ -25,3 +25,4 @@ def frame_roughness(magnitude: np.ndarray, frequencies: np.ndarray, max_peaks: i
 
 def roughness_series(stft_magnitude: np.ndarray, frequencies: np.ndarray) -> np.ndarray:
     return np.asarray([frame_roughness(stft_magnitude[:, i], frequencies) for i in range(stft_magnitude.shape[1])])
+
