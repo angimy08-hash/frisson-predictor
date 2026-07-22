@@ -65,47 +65,6 @@ if audio_upload:
         if log_upload:
             log = pd.read_csv(log_upload)
             summary, annotated = validate(scored, log, tolerance)
-            overall = summary[summary["condition"] == "전체"].iloc[0]
-            score = int(overall["hit_rate"] * 100)
-            
-            if score >= 90:
-                grade = "👑 S+"
-                msg = "AI 예측과 거의 완벽하게 일치했습니다."
-            elif score >= 80:
-                grade = "🥇 S"
-                msg = "전율을 느끼는 시점이 AI 예측과 매우 유사합니다."
-            elif score >= 70:
-                grade = "🥈 A"
-                msg = "전반적으로 높은 일치도를 보였습니다."
-            elif score >= 60:
-                grade = "🥉 B"
-                msg = "AI 예측과 어느 정도 일치했습니다."
-            elif score >= 40:
-                grade = "🎵 C"
-                msg = "일부 구간에서만 일치했습니다."
-            else:
-                grade = "🌱 D"
-                msg = "AI 예측과 차이가 큰 편입니다."
-            
-            st.markdown(f"""
-            <div style="
-            padding:25px;
-            border-radius:18px;
-            background:linear-gradient(135deg,#ff9966,#ff5e62);
-            color:white;
-            text-align:center;
-            margin-bottom:20px;">
-            
-            <h2>🎧 당신의 Frisson 감상 적합도</h2>
-            
-            <h1 style="font-size:65px;">{score}점</h1>
-            
-            <h3>{grade}</h3>
-            
-            <p>{msg}</p>
-            
-            </div>
-            """, unsafe_allow_html=True)
             # Recreate the plot here only when actual clicks are available.
             fig2, (ax0, ax1) = plt.subplots(2, 1, figsize=(13, 7), sharex=True, height_ratios=[1, 1.2])
             ax0.plot(x, audio, color='#566573', linewidth=.35); ax0.set_ylabel('파형'); ax0.set_title('오디오 파형·예측 점수·실측 클릭')
