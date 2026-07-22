@@ -48,18 +48,3 @@ def prediction_peaks(scored: pd.DataFrame) -> np.ndarray:
         local = start + np.argmax(score[start:end])
         peaks.append(scored['time_s'].iloc[local])
     return np.asarray(peaks)
-def frisson_score(scored: pd.DataFrame) -> int:
-    """
-    Convert chill_score (0~1) into a presentation-friendly 0~100 score.
-    """
-
-    if len(scored) == 0:
-        return 0
-
-    peak = scored["chill_score"].max()
-    mean = scored["chill_score"].mean()
-
-    # Peak를 조금 더 크게 반영
-    score = int((0.7 * peak + 0.3 * mean) * 100)
-
-    return max(0, min(score, 100))
