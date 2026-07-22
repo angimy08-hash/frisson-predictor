@@ -20,3 +20,4 @@ def validate(scored: pd.DataFrame, chill_log: pd.DataFrame, tolerance_seconds: f
     summary = clicks.groupby('condition', dropna=False).agg(clicks=('hit','size'), hits=('hit','sum'), hit_rate=('hit','mean'), mean_time_difference_s=('time_difference_s','mean')).reset_index()
     overall = pd.DataFrame([{'condition':'전체', 'clicks':len(clicks), 'hits':int(clicks['hit'].sum()), 'hit_rate':clicks['hit'].mean() if len(clicks) else np.nan, 'mean_time_difference_s':clicks['time_difference_s'].mean()}])
     return pd.concat([summary, overall], ignore_index=True), clicks
+
